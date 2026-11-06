@@ -32,13 +32,30 @@ let iy=60;rect(rightX,iy,rightW,205);
 ['PERHATIAN ANGKA TIMBANGAN DENGAN BAIK','CATAT HASIL TIMBANGAN DENGAN RAPI','JUMLAHKAN HASIL TIMBANGAN DENGAN TELITI','KOLOM TOTAL PENIMBANGAN HARUS DIISI','DAN TIDAK BOLEH MEMBUAT CATATAN YANG TIDAK','PERLU PADA FORM PENCATATAN TIMBANGAN'].forEach((v,i)=>text(v,rightX+rightW/2,iy+22+i*25,14));
 line(rightX,iy+160,rightX+rightW,iy+160);text('JIKA ADA PERMASALAHAN DILAPANGAN INFORMASIKAN KEPADA',rightX+rightW/2,iy+180,13);text('PENANGGUNG JAWAB / PENGAWAS',rightX+rightW/2,iy+198,13);
  // Main table
-let ty=320, rowH=27, headH=55;let cols=[x0,x0+42,x0+195,x0+300,x0+420,x0+540,x0+690,x0+790];
-rect(x0,ty,790,headH+rowH*s.perpage);for(let x of cols.slice(1,-1))line(x,ty,x,ty+headH+rowH*s.perpage);
-line(x0,ty+headH,x0+790,ty+headH);line(x0+195,ty+28,x0+690,ty+28);
-text('NO',x0+21,ty+34,14,true);text('NO. DUMPTRUCK',x0+118,ty+34,14,true);text('PENIMBANGAN',x0+442,ty+18,14,true);
-text('BRUTO',x0+247,ty+47,13,true);text('TARRA',x0+360,ty+47,13,true);text('NETTO',x0+480,ty+47,13,true);text('KETERANGAN',x0+740,ty+34,13,true);
+let ty=320, rowH=27, headH=55;
+let cols=[x0,x0+42,x0+195,x0+300,x0+420,x0+540,x0+690];
+rect(x0,ty,690,headH+rowH*s.perpage);
+for(let x of cols.slice(1,-1))line(x,ty,x,ty+headH+rowH*s.perpage);
+line(x0,ty+headH,x0+690,ty+headH);
+line(x0+195,ty+28,x0+540,ty+28);
+text('NO',x0+21,ty+34,14,true);
+text('NO. DUMPTRUCK',x0+118,ty+34,14,true);
+text('PENIMBANGAN',x0+367.5,ty+18,14,true);
+text('BRUTO',x0+247,ty+47,13,true);
+text('TARRA',x0+360,ty+47,13,true);
+text('NETTO',x0+480,ty+47,13,true);
+text('KETERANGAN',x0+615,ty+34,13,true);
 let start=page*s.perpage, pageRows=filtered.slice(start,start+s.perpage);
-pageRows.forEach((r,i)=>{let y=ty+headH+rowH*i;line(x0,y+rowH,x0+790,y+rowH);text(start+i+1,x0+21,y+18,13);text(r.unit,x0+118,y+18,13);text(money(r.gross),x0+290,y+18,13);text(money(r.tare),x0+410,y+18,13);text(money(r.net),x0+535,y+18,13);text(s.note,x0+740,y+18,13);});
+pageRows.forEach((r,i)=>{
+let y=ty+headH+rowH*i;
+line(x0,y+rowH,x0+690,y+rowH);
+text(start+i+1,x0+21,y+18,13);
+text(r.unit,x0+118,y+18,13);
+text(money(r.gross),x0+247.5,y+18,13);
+text(money(r.tare),x0+360,y+18,13);
+text(money(r.net),x0+480,y+18,13);
+text(s.note,x0+615,y+18,13);
+});
  // Right total table
 let by=ty+40;rect(rightX,by,rightW,156);line(rightX,by+30,rightX+rightW,by+30);line(rightX,by+60,rightX+rightW,by+60);line(rightX,by+90,rightX+rightW,by+90);line(rightX,by+120,rightX+rightW,by+120);line(rightX+rightW/3,by+30,rightX+rightW/3,by+90);line(rightX+2*rightW/3,by+30,rightX+2*rightW/3,by+90);
 text('TOTAL PENIMBANGAN',rightX+rightW/2,by+20,14,true);text('BRUTO (KG)',rightX+rightW/6,by+50,13,true);text('TARRA (KG)',rightX+rightW/2,by+50,13,true);text('NETTO (KG)',rightX+5*rightW/6,by+50,13,true);
