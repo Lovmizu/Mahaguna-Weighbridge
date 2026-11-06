@@ -34,16 +34,16 @@ canvas{display:block;width:100%;height:auto;background:#fff;box-shadow:0 2px 12p
 <section class="panel">
 <h2>Pengaturan laporan</h2>
 <div class="field"><label>Import data Excel (.xlsx)</label><input id="file" type="file" accept=".xlsx,.xls"></div>
-<p class="hint">Data bawaan dari Data_Updatemki.xlsx sudah tersedia. Import Excel baru memerlukan koneksi internet saat pertama kali memuat pembaca Excel.</p>
+<p class="hint">Mendukung file Excel dengan sheet DATA dan HASIL. Data transaksi dibaca dari DATA; susunan laporan dan nilai awal diambil dari HASIL.</p>
 <div class="row">
 <div class="field"><label>Tanggal laporan</label><input id="date" type="date"></div>
 <div class="field"><label>Shift kerja</label><select id="shift"><option value="SIANG">SIANG</option><option value="MALAM">MALAM</option><option value="ALL">SEMUA</option></select></div>
 </div>
 <div class="row">
 <div class="field"><label>Cuaca</label><select id="weather"><option>CERAH</option><option>MENDUNG</option><option>HUJAN</option><option>GERIMIS</option><option>BERKABUT</option></select></div>
-<div class="field"><label>Nama perusahaan</label><input id="company" value="PT. KPB"></div>
+<div class="field"><label>Nama perusahaan</label><input id="company" value="BSSR"></div>
 </div>
-<div class="field"><label>Nama checker</label><input id="checker" value="CAPLIN.E"></div>
+<div class="field"><label>Nama checker</label><input id="checker" value="JUMANTO"></div>
 <div class="field"><label>Personel / petugas (satu nama per baris)</label><textarea id="staff" rows="4" style="width:100%;padding:10px;border:1px solid #cbd1db;border-radius:8px;font:inherit">CAPLIN.E
 ASRANI
 Yugo P
