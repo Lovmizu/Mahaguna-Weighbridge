@@ -48,7 +48,7 @@ function draw(s){
  let pts=[[0,28],[35,0],[70,28],[105,0],[140,28],[140,92],[105,120],[105,56],[70,84],[70,28],[35,56],[35,120],[0,92],[0,28]];
  ctx.beginPath();ctx.moveTo(...pts[0]);for(let p of pts.slice(1))ctx.lineTo(...p);ctx.stroke();
  line(0,92,70,28);line(35,0,35,56);line(70,84,105,56);line(105,0,105,56);ctx.restore();
- text('MAHAGUNA',205,195,36,true);text('PERUSAHAAN ASAL BATU BARA',205,222,15);
+ text('MAHAGUNA',205,210,36,true);text('PERUSAHAAN ASAL BATU BARA',205,238,15);
  // Personnel block
  let sx=390,sy=38,sw=335,sh=28,staffRows=5;
  rect(sx,sy,sw,sh*(staffRows+1));
