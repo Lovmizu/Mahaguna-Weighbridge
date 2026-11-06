@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#111827"><meta name="description" content="Mahaguna Weighbridge Report - laporan penimbangan offline">
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg">
+<title>Mahaguna Weighbridge Report</title>
+<style>
+:root{--bg:#f3f5f8;--ink:#172033;--gold:#b38a36;--line:#d5d9e0;--card:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px system-ui,Arial,sans-serif}
+header{background:#111827;color:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:3}
+.logo{width:42px;height:42px;border:1px solid #d6b76d;border-radius:10px;display:grid;place-items:center;color:#e8c879;font-weight:900;font-size:19px}
+header h1{font-size:17px;margin:0}header small{color:#c7ccd5}
+main{max-width:1100px;margin:auto;padding:16px;display:grid;grid-template-columns:minmax(270px,350px) minmax(0,1fr);gap:16px}
+.panel,.preview{background:var(--card);border:1px solid #e1e5eb;border-radius:14px;padding:16px;box-shadow:0 4px 16px #1720330a}
+h2{font-size:15px;margin:0 0 12px}.field{margin:10px 0}.field label{display:block;font-size:12px;font-weight:700;color:#596273;margin-bottom:5px}
+input,select{width:100%;padding:10px 11px;border:1px solid #cbd1db;border-radius:8px;background:white;font:inherit;color:#172033}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+button{border:0;border-radius:9px;padding:11px 13px;font-weight:700;font:inherit;cursor:pointer}
+.primary{background:#b38a36;color:#111827;width:100%;margin-top:10px}.secondary{background:#eef1f5;color:#243047}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.hint{font-size:12px;color:#657084;line-height:1.5;margin:9px 0}
+.stats{font-size:12px;background:#f8f6f0;padding:10px;border-radius:8px;margin-top:12px}
+.preview{min-width:0}.preview-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.canvas-wrap{overflow:auto;background:#e9edf2;padding:10px;border-radius:10px;text-align:center}
+canvas{display:block;width:100%;height:auto;background:#fff;box-shadow:0 2px 12px #0002}
+.pager{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:10px}
+.pager button{padding:8px 12px}.pager span{font-size:12px;font-weight:700}
+@media(max-width:800px){main{grid-template-columns:1fr;padding:10px}.panel{order:1}.preview{order:2}.preview-head{flex-wrap:wrap}}
+</style></head>
+<body>
+<header><div class="logo">M</div><div><h1>MAHAGUNA</h1><small>Weighbridge Report • Offline</small></div></header>
+<main>
+<section class="panel">
+<h2>Pengaturan laporan</h2>
+<div class="field"><label>Import data Excel (.xlsx)</label><input id="file" type="file" accept=".xlsx,.xls"></div>
+<p class="hint">Data bawaan dari Data_Updatemki.xlsx sudah tersedia. Import Excel baru memerlukan koneksi internet saat pertama kali memuat pembaca Excel.</p>
+<div class="row">
+<div class="field"><label>Tanggal laporan</label><input id="date" type="date"></div>
+<div class="field"><label>Shift kerja</label><select id="shift"><option value="SIANG">SIANG</option><option value="MALAM">MALAM</option><option value="ALL">SEMUA</option></select></div>
+</div>
+<div class="row">
+<div class="field"><label>Cuaca</label><select id="weather"><option>CERAH</option><option>MENDUNG</option><option>HUJAN</option><option>GERIMIS</option><option>BERKABUT</option></select></div>
+<div class="field"><label>Nama perusahaan</label><input id="company" value="PT. KPB"></div>
+</div>
+<div class="field"><label>Nama checker</label><input id="checker" value="CAPLIN.E"></div>
+<div class="field"><label>Personel / petugas (satu nama per baris)</label><textarea id="staff" rows="4" style="width:100%;padding:10px;border:1px solid #cbd1db;border-radius:8px;font:inherit">CAPLIN.E
+ASRANI
+Yugo P
+A Syafril</textarea></div>
+<div class="row">
+<div class="field"><label>Dibuat oleh</label><input id="made" value="M.FARIZAL"></div>
+<div class="field"><label>Diperiksa oleh</label><input id="checked" value="VIKTOR.Z.P"></div>
+</div>
+<div class="field"><label>Keterangan tabel</label><input id="note" value="BSSR"></div>
+<div class="field"><label>Baris per halaman</label><select id="perpage"><option>20</option><option>15</option><option>25</option><option>30</option></select></div>
+<div class="stats" id="stats">Memuat data...</div>
+<div class="actions"><button class="secondary" id="refresh">Perbarui tampilan</button><button class="secondary" id="reset">Reset pengaturan</button></div>
+<button class="primary" id="export">Simpan hasil sebagai JPG</button>
+<p class="hint">JPG dibuat langsung dari perangkat. Pilih tanggal, shift, dan halaman sebelum menyimpan. Jika data lebih dari satu halaman, simpan setiap halaman secara terpisah.</p>
+</section>
+<section class="preview">
+<div class="preview-head"><h2>Pratinjau laporan</h2><span class="hint" id="count"></span></div>
+<div class="canvas-wrap"><canvas id="report" width="1600" height="1100"></canvas></div>
+<div class="pager"><button class="secondary" id="prev">‹ Sebelumnya</button><span id="pageinfo">Halaman 1</span><button class="secondary" id="next">Berikutnya ›</button></div>
+</section></main>
+<script src="app.js"></script>
+</body></html>
