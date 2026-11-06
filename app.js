@@ -44,16 +44,29 @@ function draw(s){
  const rect=(x,y,w,h)=>ctx.strokeRect(x,y,w,h);
  const x0=70,tableW=790,rightX=880,rightW=650;
  // Logo mark
- ctx.save();ctx.translate(130,95);ctx.lineWidth=5;
+ ctx.save();ctx.translate(130,65);ctx.lineWidth=5;
  let pts=[[0,28],[35,0],[70,28],[105,0],[140,28],[140,92],[105,120],[105,56],[70,84],[70,28],[35,56],[35,120],[0,92],[0,28]];
  ctx.beginPath();ctx.moveTo(...pts[0]);for(let p of pts.slice(1))ctx.lineTo(...p);ctx.stroke();
  line(0,92,70,28);line(35,0,35,56);line(70,84,105,56);line(105,0,105,56);ctx.restore();
- text('MAHAGUNA',205,225,38,true);text('PERUSAHAAN ASAL BATU BARA',205,254,16);
+ text('MAHAGUNA',205,195,36,true);text('PERUSAHAAN ASAL BATU BARA',205,222,15);
  // Personnel block
- let sx=390,sy=38,sw=335,sh=28;rect(sx,sy,sw,sh*6);line(sx+145,sy,sx+145,sy+sh*6);line(sx+245,sy,sx+245,sy+sh*6);
- text('NAMA PERSONEL',sx+72,sy+14,13,true);text('TANDA TANGAN',sx+195,sy+14,13,true);text('KETERANGAN',sx+290,sy+14,13,true);
- s.staff.slice(0,5).forEach((n,i)=>{line(sx,sy+sh*(i+1),sx+sw,sy+sh*(i+1));text(n,sx+72,sy+sh*(i+1)+14,14,true);});
- text(s.weather,sx+290,sy+105,15,true);
+ let sx=390,sy=38,sw=335,sh=28,staffRows=5;
+ rect(sx,sy,sw,sh*(staffRows+1));
+ line(sx+145,sy,sx+145,sy+sh*(staffRows+1));
+ line(sx+245,sy,sx+245,sy+sh*(staffRows+1));
+ text('NAMA PERSONEL',sx+72,sy+14,12,true);
+ text('TANDA TANGAN',sx+195,sy+14,12,true);
+ text('KETERANGAN',sx+290,sy+14,12,true);
+ for(let i=0;i<staffRows;i++){
+  let y=sy+sh*(i+1);
+  line(sx,y,sx+sw,y);
+  let name=s.staff[i]||'';
+  ctx.save();
+  ctx.font='bold 13px Arial';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#111';
+  ctx.fillText(name,sx+72,y+sh/2,132);
+  ctx.restore();
+ }
+ text(s.weather,sx+290,sy+sh*3.5,14,true);
  // Date / shift
  rect(x0,268,tableW,32);line(x0+350,268,x0+350,300);line(x0+520,268,x0+520,300);
  text('HARI',x0+175,278,12,true);text(dayFmt(s.date),x0+175,293,14,true);
